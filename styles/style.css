@@ -2,4 +2,330 @@
 
 .page {
   /* сохраните в разметке и стилях класс page у тега body. Он удобен, чтобы составлять селекторы для разных цветовых тем. */
+  color: var(--main-text-color, #f1b2ce);
+  font-family: var(--main-font, "IBM Plex mono", monospace);
+  font-size: 18px;
+  line-height: 1.3;
+  background-color: var(--page-background-color, #000028);
+  background-image: var(--page-background-image, url("../images/cover-image-dark.png"));
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* Общий контекст позиционирования */
+.decorated-zone {
+  position: relative;
+}
+
+.decorated-zone::before,
+.decorated-zone::after {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+}
+
+/* Верхний правый угол */
+.decorated-zone::before {
+  top: 10px;
+  right: 10px;
+  border-top: 1px solid var(--decor-color, #ff0070);
+  border-right: 1px solid var(--decor-color, #ff0070);
+}
+
+/* Нижний левый угол */
+.decorated-zone::after {
+  bottom: 10px;
+  left: 10px;
+  border-bottom: 1px solid var(--decor-color, #ff0070);
+  border-left: 1px solid var(--decor-color, #ff0070);
+}
+
+.header,
+.footer {
+  display: grid;
+  min-height: 668px; /* Из мобильного макета */
+  height: 100vh;
+  padding: 10px;
+}
+
+.header {
+  grid-template-rows: 1fr min-content 1fr;
+}
+
+.footer {
+  place-items: center; /* Центрирование */
+}
+
+.header__theme-menu {
+  align-self: center;
+  justify-self: end; /* Прижимаю меню к правому краю */
+}
+
+.header__theme-menu-list {
+  display: grid;
+  gap: 10px;
+}
+
+.header__theme-menu-button {
+  border: none;
+  padding: 1.5px 13px;
+  color: var(--decor-color, #ff0070);
+  background-color: transparent;
+  text-transform: lowercase;
+  cursor: pointer;
+}
+
+.header__theme-menu-button:hover {
+  outline: 1px solid var(--decor-color-transparent, rgba(255, 0, 112, 0.4));
+}
+
+.header__theme-menu-button:focus {
+  outline: none;
+}
+
+.header__theme-menu-button:focus-visible {
+  border-bottom: 1px solid var(--decor-color, #ff0070);
+}
+
+.header__theme-menu-button_active {
+  outline: 1px solid var(--decor-color, #ff0070);
+  pointer-events: none;
+}
+
+/* Позиционирую REC относительно шапки по мобильному макету */
+.header__rec {
+  position: absolute;
+  top: 10px;
+  right: 38px;
+  color: var(--decor-color, #ff0070);
+}
+
+/* Светящаяся точка без доп элемента */
+.header__rec::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  right: -19px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--decor-color, #ff0070);
+  box-shadow: 0 0 4px 2px var(--decor-color, #ff0070);
+}
+
+.header__title,
+.footer__title {
+  color: var(--title-color, #db00ff);
+  font-weight: bold;
+  font-size: clamp(7.25rem, 7.0115rem + 1.0178vw, 7.5rem);
+  line-height: 82.5%;
+}
+
+.header__title {
+  align-self: center;
+  margin-left: -10px; /* Компенсирую padding: 10px у шапки */
+  text-shadow: 4px 4px 0 var(--accent-color, #ff0070);
+}
+
+.footer__title {
+  text-shadow: 2px 2px 0 var(--accent-color, #ff0070);
+}
+
+.title-decor {
+  color: var(--title-decor-text-color, #000028);
+  font-weight: bold;
+  background-color: var(--accent-color, #ff0070);
+}
+
+.header__description {
+  align-self: center;
+  justify-self: end;
+  width: 100%;
+}
+
+.content {
+  display: grid;
+  gap: 50px;
+  padding: 40px 10px;
+}
+
+.content-section {
+  display: grid;
+  gap: 20px;
+}
+
+.content-section__title {
+  color: var(--decor-color, #ff0070);
+  font-size: inherit; /* Отмена браузерного размера, оставляет размер из .page */
+}
+
+.content-section__cards {
+  display: grid;
+  gap: 20px;
+}
+
+.content-section__card {
+  display: grid;
+  gap: 10px;
+}
+
+.content-section__subtitle {
+  font-size: inherit; /* Отмена браузерного размера, оставляет размер из .page */
+}
+
+.content-section__subtitle_type_advice {
+  font-weight: normal;
+}
+
+/* Мобильные стили */
+.gallery {
+  display: grid;
+  gap: 10px;
+}
+
+.gallery__title {
+  font-size: inherit; /* Убираю стандартный размер h2 */
+}
+
+.gallery__image {
+  display: block; /* Убираю пробел, характерный для строчных изображений */
+  width: 100%;
+}
+
+.content-section__link {
+  text-decoration: none;
+  text-shadow: 2px 2px 0 var(--accent-color, #ff0070);
+}
+
+.content-section__link:hover {
+  border-bottom: 1px solid currentColor;
+}
+
+.content-section__link:focus {
+  outline: none;
+}
+
+.content-section__link:focus-visible {
+  outline: 1px solid currentColor;
+}
+
+/* Брейкпоинт планшетный: увеличиваю поля и минимальную высоту */
+@media (width >= 768px) {
+  .header,
+  .footer {
+    min-height: 1024px;
+    padding: 20px;
+  }
+
+  .decorated-zone::before {
+    top: 20px;
+    right: 20px;
+  }
+
+  .decorated-zone::after {
+    bottom: 20px;
+    left: 20px;
+  }
+
+  .header__rec {
+    top: 20px;
+    right: 48px;
+  }
+
+  .header__title,
+  .footer__title {
+    font-size: clamp(7.5rem, 0.5625rem + 14.4531vw, 9.8125rem);
+  }
+
+  .header__title {
+    margin-left: -20px;
+  }
+
+  .header__description {
+    width: 50%;
+  }
+
+  .content {
+    gap: 80px;
+    padding: 60px 20px;
+  }
+
+  .content-section {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  /* Во второй секции заголовок остаётся сверху, а карточки занимают всю строку */
+  .content-section_type_distractions {
+    grid-template-columns: 1fr;
+  }
+
+  .content-section_type_distractions .content-section__title {
+    max-width: calc((100% - 20px) / 3);
+  }
+
+  /* Раскладываю изображения по областям планшетного макета */
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+      "title title title"
+      "sunset sunset ice-cream"
+      "tape books ice-cream"
+      "tape street street";
+    gap: 20px;
+  }
+
+  .gallery__title {
+    grid-area: title;
+  }
+
+  /* Заполнение области сетки без искажения изображений */
+  .gallery__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .gallery__image_type_sunset {
+    grid-area: sunset;
+  }
+
+  .gallery__image_type_ice-cream {
+    grid-area: ice-cream;
+  }
+
+  .gallery__image_type_tape {
+    grid-area: tape;
+  }
+
+  .gallery__image_type_books {
+    grid-area: books;
+  }
+
+  .gallery__image_type_street {
+    grid-area: street;
+  }
+}
+
+/* На десктопе меню становится горизонтальным, а карточки второй секции распределяются по трём колонкам */
+@media (width >= 1024px) {
+  .header,
+  .footer {
+    min-height: 768px;
+  }
+
+  .header__theme-menu {
+    align-self: start;
+    justify-self: center;
+  }
+
+  .header__theme-menu-list {
+    grid-auto-flow: column;
+  }
+
+  .content-section_type_distractions .content-section__cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
