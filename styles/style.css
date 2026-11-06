@@ -125,7 +125,6 @@
 
 .header__title {
   align-self: center;
-  margin-left: -10px; /* Компенсирую padding: 10px у шапки */
   text-shadow: 4px 4px 0 var(--accent-color, #ff0070);
 }
 
